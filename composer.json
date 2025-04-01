@@ -1,0 +1,27 @@
+{
+    "name": "cx-engine/expert-stats-api-sdk-php",
+    "description": "The Official Expert statistics API PHP Client/SDK",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "CXEngine\\ExpertStats\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Thomas",
+            "email": "thomas@bluerocktel.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "nesbot/carbon": "^2.68",
+        "illuminate/collections": ">=9.0",
+        "saloonphp/saloon": "^3.0",
+        "saloonphp/rate-limit-plugin": "^2.0",
+        "saloonphp/pagination-plugin": "^2.0"
+    },
+    "require-dev": {
+        "spatie/ray": "^1.37"
+    }
+}
