@@ -19,6 +19,7 @@ class Pbx3cxHost extends Entity
         'csv_data_fetched_at' => 'datetime',
         'recordings_fetched_at' => 'datetime',
         'recordings_pushed_at' => 'datetime',
+        'expert_statistics_trial_ends_at' => 'datetime',
     ];
 
     public function __construct(
@@ -57,7 +58,11 @@ class Pbx3cxHost extends Entity
         public ?Carbon $cdr_pushed_at = null,
         public int $cdr_frequency = 1440,
         public string $csv_location = '/var/lib/3cxpbx/Instance1/Data/Logs/Tmp',
+        public ?bool $fetch_pbx_fetch_again = false,
+        public ?array $map = null,
         public ?string $groups = null,
+        public ?Carbon $expert_statistics_trial_ends_at = null,
+        public ?bool $expert_statistics_active_subscription = false,
         public ?string $expert_statistics_version = '1.00',
         public ?int $pbx3cx_host_grid_id = null,
         public bool $make_csv_data = false,
