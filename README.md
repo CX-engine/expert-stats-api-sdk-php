@@ -1,4 +1,4 @@
-# php-sdk
+# Expert statistics PHP Client
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/CX-engine/expert-stats-api-sdk-php.svg?style=flat-square)](https://packagist.org/packages/CX-engine/expert-stats-api-sdk-php)
@@ -62,17 +62,6 @@ $api = new ExpertStatisticsConnector(
 ```
 
 If the connector fails to retrive a Bearer token from the provided credentials, a `CXEngine\ExpertStats\Exceptions\AuthenticationException` will be thrown.
-
-Otherwise, you can start testing the API by calling the `version()` method of Helper resource :
-
-```php
-$response = $api->helper()->version();
-
-var_dump(
-  $response->failed(), // true is the request returned 4xx or 5xx code.
-  $response->json(),   // json response as an array
-);
-```
 
 <a name="usage"></a>
 
