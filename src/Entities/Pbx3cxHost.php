@@ -59,7 +59,7 @@ class Pbx3cxHost extends Entity
         public int $cdr_frequency = 1440,
         public string $csv_location = '/var/lib/3cxpbx/Instance1/Data/Logs/Tmp',
         public ?bool $fetch_pbx_fetch_again = false,
-        public ?array $map = null,
+        public ?array $pbx_map = null,
         public ?string $groups = null,
         public ?Carbon $expert_statistics_trial_ends_at = null,
         public ?bool $expert_statistics_active_subscription = false,
