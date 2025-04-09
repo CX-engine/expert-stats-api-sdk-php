@@ -94,7 +94,7 @@ class ExpertStatisticsConnector extends Connector implements HasPagination
     protected function resolveLimits(): array
     {
         return [
-            Limit::allow(requests: 480, threshold: 1)->everyMinute()->sleep(),
+            Limit::allow(requests: 1000, threshold: 0.9)->everyMinute()->sleep(),
         ];
     }
 
@@ -121,7 +121,7 @@ class ExpertStatisticsConnector extends Connector implements HasPagination
     public function paginate(Request $request): PagedPaginator
     {
         return new class(connector: $this, request: $request) extends PagedPaginator {
-            protected ?int $perPageLimit = 20;
+            protected ?int $perPageLimit = 40;
 
             protected function isLastPage(Response $response): bool
             {
