@@ -5,15 +5,22 @@ namespace CXEngine\ExpertStats;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Http\Connector;
-use Saloon\Http\Auth\TokenAuthenticator;
+use Saloon\Http\PendingRequest;
+use Saloon\RateLimitPlugin\Limit;
 use CXEngine\ExpertStats\Resources;
+use Saloon\Http\Auth\TokenAuthenticator;
 use Saloon\PaginationPlugin\PagedPaginator;
-use Saloon\PaginationPlugin\Contracts\HasPagination;
 use CXEngine\ExpertStats\Requests\AuthRequest;
+use Saloon\RateLimitPlugin\Stores\MemoryStore;
+use Saloon\RateLimitPlugin\Traits\HasRateLimits;
+use Saloon\PaginationPlugin\Contracts\HasPagination;
+use Saloon\RateLimitPlugin\Contracts\RateLimitStore;
 use CXEngine\ExpertStats\Exceptions\AuthenticationException;
 
 class ExpertStatisticsConnector extends Connector implements HasPagination
 {
+    use HasRateLimits;
+
     protected string $apiToken;
     protected array $apiUser;
 
@@ -25,7 +32,28 @@ class ExpertStatisticsConnector extends Connector implements HasPagination
         protected string $password,
         protected ?string $tenantCode = null,
     ) {
-        $this->setAccessToken();
+    }
+
+    public function getTenantCode(): ?string
+    {
+        return $this->tenantCode;
+    }
+
+    public function setTenantCode(string $tenantCode): self
+    {
+        $this->tenantCode = $tenantCode;
+
+        return $this;
+    }
+
+    public function boot(PendingRequest $pendingRequest): void
+    {
+        $this->authenticatePendingRequest($pendingRequest);
+    }
+
+    public function resolveBaseUrl(): string
+    {
+        return $this->apiUrl;
     }
 
     protected function setAccessToken()
@@ -44,13 +72,35 @@ class ExpertStatisticsConnector extends Connector implements HasPagination
 
         $this->apiUser = $body['user'];
         $this->apiToken = $body['token'];
-
-        $this->authenticate(new TokenAuthenticator($this->apiToken));
     }
 
-    public function resolveBaseUrl(): string
+    protected function authenticatePendingRequest(PendingRequest $pendingRequest): void
     {
-        return $this->apiUrl;
+        if (get_class($pendingRequest->getRequest()) === AuthRequest::class) {
+            return;
+        }
+
+        if ($pendingRequest->hasMockClient()) {
+            return;
+        }
+
+        if (!isset($this->apiToken)) {
+            $this->setAccessToken();
+        }
+
+        $pendingRequest->authenticate(new TokenAuthenticator($this->apiToken));
+    }
+
+    protected function resolveLimits(): array
+    {
+        return [
+            Limit::allow(requests: 500, threshold: 0.9)->everyMinute()->sleep(),
+        ];
+    }
+
+    protected function resolveRateLimitStore(): RateLimitStore
+    {
+        return new MemoryStore;
     }
 
     protected function defaultHeaders(): array
@@ -61,16 +111,11 @@ class ExpertStatisticsConnector extends Connector implements HasPagination
         ];
     }
 
-    public function getTenantCode(): ?string
+    public function defaultConfig(): array
     {
-        return $this->tenantCode;
-    }
-
-    public function setTenantCode(string $tenantCode): self
-    {
-        $this->tenantCode = $tenantCode;
-
-        return $this;
+        return [
+            'timeout' => 60,
+        ];
     }
 
     public function paginate(Request $request): PagedPaginator
