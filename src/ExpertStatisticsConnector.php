@@ -94,7 +94,7 @@ class ExpertStatisticsConnector extends Connector implements HasPagination
     protected function resolveLimits(): array
     {
         return [
-            Limit::allow(requests: 500, threshold: 0.9)->everyMinute()->sleep(),
+            Limit::allow(requests: 480, threshold: 1)->everyMinute()->sleep(),
         ];
     }
 
