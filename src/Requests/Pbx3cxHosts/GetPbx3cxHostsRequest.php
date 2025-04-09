@@ -18,6 +18,16 @@ class GetPbx3cxHostsRequest extends Request implements Paginatable
         return '/v1.2/pbx3cx-hosts';
     }
 
+    public function __construct(
+        protected array $params = [],
+    ) {
+    }
+
+    protected function defaultQuery(): array
+    {
+        return $this->params;
+    }
+
     public function createDtoFromResponse(Response $response): EntityCollection
     {
         return EntityCollection::fromResponse($response, Pbx3cxHost::class, 'data');

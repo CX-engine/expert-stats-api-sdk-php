@@ -4,6 +4,7 @@ namespace CXEngine\ExpertStats\Entities;
 
 use Carbon\Carbon;
 use CXEngine\ExpertStats\Entities\Entity;
+use CXEngine\ExpertStats\EntityCollection;
 
 class Pbx3cxHost extends Entity
 {
@@ -20,6 +21,7 @@ class Pbx3cxHost extends Entity
         'recordings_fetched_at' => 'datetime',
         'recordings_pushed_at' => 'datetime',
         'expert_statistics_trial_ends_at' => 'datetime',
+        'customers' => Casts\EntityCollectionCast::class.':'.Customer::class,
     ];
 
     public function __construct(
@@ -86,6 +88,7 @@ class Pbx3cxHost extends Entity
         public ?string $comment = null,
         public ?Carbon $created_at = null,
         public ?Carbon $updated_at = null,
+        public ?EntityCollection $customers = null,
     ) {
         //
     }

@@ -23,6 +23,7 @@ class ExpertStatisticsConnector extends Connector implements HasPagination
         protected string $email,
         #[\SensitiveParameter]
         protected string $password,
+        protected ?string $tenantCode = null,
     ) {
         $this->setAccessToken();
     }
@@ -58,6 +59,18 @@ class ExpertStatisticsConnector extends Connector implements HasPagination
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ];
+    }
+
+    public function getTenantCode(): ?string
+    {
+        return $this->tenantCode;
+    }
+
+    public function setTenantCode(string $tenantCode): self
+    {
+        $this->tenantCode = $tenantCode;
+
+        return $this;
     }
 
     public function paginate(Request $request): PagedPaginator
