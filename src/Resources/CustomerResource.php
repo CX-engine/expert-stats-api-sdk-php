@@ -51,6 +51,13 @@ class CustomerResource extends Resource
         );
     }
 
+    public function showFromOrigin(string $tenantCode, string $tenantReference): Response
+    {
+        return $this->connector->send(
+            new Requests\Customers\ShowCustomerFromOriginRequest($tenantCode, $tenantReference)
+        );
+    }
+
     public function getHosts(Customer $customer): Response
     {
         return $this->connector->send(

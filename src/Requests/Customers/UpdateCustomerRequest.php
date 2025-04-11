@@ -34,7 +34,7 @@ class UpdateCustomerRequest extends Request implements HasBody
     {
         return Arr::except(
             $this->customer->toArray(),
-            ['code', 'created_at', 'updated_at']
+            ['code', 'pbx_map', 'created_at', 'updated_at', 'customers']
         );
     }
 
