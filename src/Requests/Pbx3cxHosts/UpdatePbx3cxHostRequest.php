@@ -5,7 +5,6 @@ namespace CXEngine\ExpertStats\Requests\Pbx3cxHosts;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
-use Illuminate\Support\Arr;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Traits\Body\HasJsonBody;
 use CXEngine\ExpertStats\Entities\Pbx3cxHost;
@@ -32,10 +31,7 @@ class UpdatePbx3cxHostRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return Arr::except(
-            $this->host->toArray(),
-            ['code', 'pbx_map', 'customers', 'created_at', 'updated_at']
-        );
+        return $this->host->toRequestPayload();
     }
 
     public function createDtoFromResponse(Response $response): mixed

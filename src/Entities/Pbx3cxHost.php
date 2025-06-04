@@ -3,6 +3,7 @@
 namespace CXEngine\ExpertStats\Entities;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use CXEngine\ExpertStats\Entities\Entity;
 use CXEngine\ExpertStats\EntityCollection;
 
@@ -91,5 +92,27 @@ class Pbx3cxHost extends Entity
         public ?EntityCollection $customers = null,
     ) {
         //
+    }
+
+    public function toRequestPayload(): array
+    {
+        return [
+            ...Arr::except(
+                $this->toArray(),
+                ['code', 'pbx_map', 'customers', 'created_at', 'updated_at']
+            ),
+            ...array_filter([
+                'licence_activation_date' => $this->licence_activation_date ? $this->licence_activation_date->format('Y-m-d\TH:i:sZ') : null,
+                'licence_renewal_date' => $this->licence_renewal_date ? $this->licence_renewal_date->format('Y-m-d\TH:i:sZ') : null,
+                'backups_fetched_at' => $this->backups_fetched_at ? $this->backups_fetched_at->format('Y-m-d\TH:i:sZ') : null,
+                'cdr_fetched_at' => $this->cdr_fetched_at ? $this->cdr_fetched_at->format('Y-m-d\TH:i:sZ') : null,
+                'cdr_pushed_at' => $this->cdr_pushed_at ? $this->cdr_pushed_at->format('Y-m-d\TH:i:sZ') : null,
+                'expert_statistics_trial_ends_at' => $this->expert_statistics_trial_ends_at ? $this->expert_statistics_trial_ends_at->format('Y-m-d\TH:i:sZ') : null,
+                'csv_data_made_at' => $this->csv_data_made_at ? $this->csv_data_made_at->format('Y-m-d\TH:i:sZ') : null,
+                'csv_data_fetched_at' => $this->csv_data_fetched_at ? $this->csv_data_fetched_at->format('Y-m-d\TH:i:sZ') : null,
+                'recordings_fetched_at' => $this->recordings_fetched_at ? $this->recordings_fetched_at->format('Y-m-d\TH:i:sZ') : null,
+                'recordings_pushed_at' => $this->recordings_pushed_at ? $this->recordings_pushed_at->format('Y-m-d\TH:i:sZ') : null,
+            ])
+        ];
     }
 }
