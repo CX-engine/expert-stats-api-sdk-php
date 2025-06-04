@@ -31,7 +31,7 @@ class CreatePbx3cxHostRequest extends Request implements HasBody
     {
         return Arr::except(
             $this->host->toArray(),
-            ['code', 'pbx_map', 'created_at', 'updated_at', 'customers']
+            ['code', 'pbx_map', 'customers', 'created_at', 'updated_at']
         );
     }
 
