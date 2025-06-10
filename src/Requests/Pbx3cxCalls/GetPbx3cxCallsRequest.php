@@ -2,6 +2,7 @@
 
 namespace CXEngine\ExpertStats\Requests\Pbx3cxCalls;
 
+use Carbon\Carbon;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
@@ -19,7 +20,8 @@ class GetPbx3cxCallsRequest extends Request
 
     public function __construct(
         protected string $hostName,
-        protected ?string $timekey = null,
+        protected Carbon $start,
+        protected Carbon $end,
     ) {
         //
     }
@@ -27,7 +29,8 @@ class GetPbx3cxCallsRequest extends Request
     protected function defaultQuery(): array
     {
         return array_filter([
-            'timekey' => $this->timekey,
+            'start_date' => $this->start->format('Y-m-d H:i:s'),
+            'end_date' => $this->end->format('Y-m-d H:i:s'),
         ]);
     }
 

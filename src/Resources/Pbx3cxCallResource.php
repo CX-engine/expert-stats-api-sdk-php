@@ -2,6 +2,7 @@
 
 namespace CXEngine\ExpertStats\Resources;
 
+use Carbon\Carbon;
 use Saloon\Http\Response;
 use CXEngine\ExpertStats\Entities\Pbx3cxCall;
 use CXEngine\ExpertStats\Requests\Pbx3cxCalls as Endpoints;
@@ -10,12 +11,14 @@ class Pbx3cxCallResource extends Resource
 {
     public function index(
         string $hostName,
-        ?string $timekey = null,
+        Carbon $start,
+        Carbon $end,
     ): Response {
         return $this->connector->send(
             new Endpoints\GetPbx3cxCallsRequest(
                 hostName: $hostName,
-                timekey: $timekey,
+                start: $start,
+                end: $end,
             )
         );
     }

@@ -8,9 +8,9 @@ use CXEngine\ExpertStats\Entities\Entity;
 class Pbx3cxCallSegment extends Entity
 {
     protected static $arrayCast = [
-        'start_at' => 'datetime:d/m/Y H:i:s',
-        'answer_at' => 'datetime:d/m/Y H:i:s',
-        'end_at' => 'datetime:d/m/Y H:i:s',
+        'start_at' => 'datetime:Y-m-d H:i:s',
+        'answer_at' => 'datetime:Y-m-d H:i:s',
+        'end_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     protected static $aliases = [
@@ -21,20 +21,20 @@ class Pbx3cxCallSegment extends Entity
 
     public function __construct(
         public ?int $call_id = null,
-        public ?int $seg_id = null,
-        public ?int $seg_type = null,
+        public ?string $seg_id = null,
+        public ?int $seg_type = null, # deprecated
         public ?int $seg_order = null,
         public ?string $segment_type = null,
-        public ?string $src_dn_type = null,
-        public ?string $src_dn = null,
-        public ?string $src_number = null,
-        public ?string $src_display_name = null,
+        public ?string $src_dn_type = null, # deprecated
+        public ?string $src_dn = null, # deprecated
+        public ?string $src_number = null, # deprecated
+        public ?string $src_display_name = null, # deprecated
         public ?string $origin_dn_type = null,
         public ?string $origin_dn = null,
         public ?string $origin_display_name = null,
         public ?string $dst_dn_type = null,
         public ?string $dst_dn = null,
-        public ?string $dst_number = null,
+        public ?string $dst_number = null, # deprecated
         public ?string $dst_display_name = null,
         public ?Carbon $start_at = null,
         public ?int $start_at_ts = null,
