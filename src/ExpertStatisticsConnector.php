@@ -19,7 +19,7 @@ use CXEngine\ExpertStats\Exceptions\AuthenticationException;
 
 class ExpertStatisticsConnector extends Connector implements HasPagination
 {
-    use HasRateLimits;
+    // use HasRateLimits;
 
     protected string $apiToken;
     protected array $apiUser;

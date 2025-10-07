@@ -39,6 +39,8 @@ class Pbx3cxHost extends Entity
         public string $ssh_username = 'phonesystem',
         public ?string $ssh_password = null,
         public ?string $ssh_key = null,
+        public bool $ssh_active = false,
+        public ?string $version_3cx = null,
         public string $database_name = 'database_single',
         public string $database_username = 'phonesystem',
         public ?string $database_password = null,
