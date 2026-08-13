@@ -37,7 +37,7 @@ class Pbx3cxCall extends Entity
         public ?string $origin_display_name = null,
         public ?string $dst_dn_type = null,
         public ?string $dst_dn = null,
-        public ?string $dst_number = null, # deprecated
+        public ?string $dst_number = null,
         public ?string $dst_display_name = null,
         public ?Carbon $answer_at = null,
         public ?int $answer_at_ts = null,
