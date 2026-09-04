@@ -149,4 +149,9 @@ class ExpertStatisticsConnector extends Connector implements HasPagination
     {
         return new Resources\Pbx3cxCallResource($this);
     }
+
+    public function stats(): Resources\StatsResource
+    {
+        return new Resources\StatsResource($this);
+    }
 }
