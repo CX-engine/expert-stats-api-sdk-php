@@ -85,12 +85,38 @@ class StatsResource extends Resource
     }
 
     /**
+     * Streams a binary file export. Callers must NOT call `->json()` on the
+     * returned response.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function getQueueReportFile(string $hostName, array $data): Response
+    {
+        return $this->connector->send(
+            new Endpoints\QueueReportFileAggregatedRequest($hostName, $data)
+        );
+    }
+
+    /**
      * @param  array<string, mixed>  $query
      */
     public function usersReport(string $hostName, array $query = []): Response
     {
         return $this->connector->send(
             new Endpoints\UsersReportRequest($hostName, $query)
+        );
+    }
+
+    /**
+     * Streams a binary file export. Callers must NOT call `->json()` on the
+     * returned response.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function getUserReportFile(string $hostName, array $data): Response
+    {
+        return $this->connector->send(
+            new Endpoints\UserReportFileRequest($hostName, $data)
         );
     }
 
@@ -115,12 +141,38 @@ class StatsResource extends Resource
     }
 
     /**
+     * Streams a binary file export. Callers must NOT call `->json()` on the
+     * returned response.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function getCallerReportFile(string $hostName, array $data): Response
+    {
+        return $this->connector->send(
+            new Endpoints\CallerReportFileRequest($hostName, $data)
+        );
+    }
+
+    /**
      * @param  array<string, mixed>  $query
      */
     public function didReport(string $hostName, array $query = []): Response
     {
         return $this->connector->send(
             new Endpoints\DidReportRequest($hostName, $query)
+        );
+    }
+
+    /**
+     * Streams a binary file export. Callers must NOT call `->json()` on the
+     * returned response.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function getDidReportFile(string $hostName, array $data): Response
+    {
+        return $this->connector->send(
+            new Endpoints\DidReportFileRequest($hostName, $data)
         );
     }
 

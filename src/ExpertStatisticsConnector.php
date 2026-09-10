@@ -154,4 +154,69 @@ class ExpertStatisticsConnector extends Connector implements HasPagination
     {
         return new Resources\StatsResource($this);
     }
+
+    public function reportTableConfig(): Resources\ReportTableConfigResource
+    {
+        return new Resources\ReportTableConfigResource($this);
+    }
+
+    public function agentConfiguration(): Resources\AgentConfigurationResource
+    {
+        return new Resources\AgentConfigurationResource($this);
+    }
+
+    public function preanswerTime(): Resources\PreanswerTimeResource
+    {
+        return new Resources\PreanswerTimeResource($this);
+    }
+
+    public function resourceGroup(): Resources\ResourceGroupResource
+    {
+        return new Resources\ResourceGroupResource($this);
+    }
+
+    public function hostAudit(): Resources\HostAuditResource
+    {
+        return new Resources\HostAuditResource($this);
+    }
+
+    public function hostNote(): Resources\HostNoteResource
+    {
+        return new Resources\HostNoteResource($this);
+    }
+
+    public function cdr(): Resources\CdrResource
+    {
+        return new Resources\CdrResource($this);
+    }
+
+    public function report(): Resources\ReportResource
+    {
+        return new Resources\ReportResource($this);
+    }
+
+    public function alert(): Resources\AlertResource
+    {
+        return new Resources\AlertResource($this);
+    }
+
+    public function wallboard(): Resources\WallboardResource
+    {
+        return new Resources\WallboardResource($this);
+    }
+
+    public function wallboardData(): Resources\WallboardDataResource
+    {
+        return new Resources\WallboardDataResource($this);
+    }
+
+    public function agentStats(): Resources\AgentStatsResource
+    {
+        return new Resources\AgentStatsResource($this);
+    }
+
+    public function ai(): Resources\AiResource
+    {
+        return new Resources\AiResource($this);
+    }
 }
