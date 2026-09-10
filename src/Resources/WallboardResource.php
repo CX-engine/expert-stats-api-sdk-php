@@ -66,10 +66,10 @@ class WallboardResource extends Resource
         );
     }
 
-    public function setActive(string $hostName, string $uuid): Response
+    public function setActive(string $hostName, string $uuid, bool $active = true): Response
     {
         return $this->connector->send(
-            new Endpoints\SetActiveWallboardRequest($hostName, $uuid)
+            new Endpoints\SetActiveWallboardRequest($hostName, $uuid, $active)
         );
     }
 
