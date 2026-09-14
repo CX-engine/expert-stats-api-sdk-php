@@ -36,14 +36,14 @@ class ReportResource extends Resource
     /**
      * @param  array<string, mixed>  $data
      */
-    public function update(string $hostName, int $id, array $data): Response
+    public function update(string $hostName, string $id, array $data): Response
     {
         return $this->connector->send(
             new Endpoints\UpdateReportRequest($hostName, $id, $data)
         );
     }
 
-    public function delete(string $hostName, int $id): Response
+    public function delete(string $hostName, string $id): Response
     {
         return $this->connector->send(
             new Endpoints\DeleteReportRequest($hostName, $id)

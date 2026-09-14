@@ -18,7 +18,7 @@ class UpdateReportRequest extends Request implements HasBody
      */
     public function __construct(
         protected readonly string $hostName,
-        protected readonly int $id,
+        protected readonly string $id,
         protected readonly array $data,
     ) {
     }

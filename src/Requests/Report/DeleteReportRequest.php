@@ -11,7 +11,7 @@ class DeleteReportRequest extends Request
 
     public function __construct(
         protected readonly string $hostName,
-        protected readonly int $id,
+        protected readonly string $id,
     ) {
     }
 
