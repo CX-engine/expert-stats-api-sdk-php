@@ -224,4 +224,9 @@ class ExpertStatisticsConnector extends Connector implements HasPagination
     {
         return new Resources\AiHelperResource($this);
     }
+
+    public function training(): Resources\TrainingResource
+    {
+        return new Resources\TrainingResource($this);
+    }
 }
