@@ -98,9 +98,18 @@ use CXEngine\ExpertStats\ExpertStatisticsConnector;
 
 $api = new ExpertStatisticsConnector(XPSTATS_API_URL, XPSTATS_API_USERNAME, XPSTATS_API_PASSWORD);
 
-$response = $api->pbx3cxCall()->index(
+$response = $api->customer()->show(customerCode: 'ACME');
+
+// Calls are cursor-paginated: iterate the pages' responses, or the calls themselves.
+$pages = $api->pbx3cxCall()->index(
     hostName: 'pbx01.acme.com',
+    start: now()->subDay(),
+    end: now(),
 );
+
+foreach ($pages->items() as $call) {
+    /** @var CXEngine\ExpertStats\Entities\Pbx3cxCall $call */
+}
 ```
 
 Resources classes usually provide (but are not limited to) the following methods :

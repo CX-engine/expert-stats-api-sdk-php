@@ -6,16 +6,17 @@ use Carbon\Carbon;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
+use Saloon\PaginationPlugin\Contracts\Paginatable;
 use CXEngine\ExpertStats\EntityCollection;
 use CXEngine\ExpertStats\Entities\Pbx3cxCall;
 
-class GetPbx3cxCallsRequest extends Request
+class GetPbx3cxCallsRequest extends Request implements Paginatable
 {
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
     {
-        return '/v1.2/' . $this->hostName . '/calls';
+        return '/v1.3/' . $this->hostName . '/calls';
     }
 
     public function __construct(
@@ -36,6 +37,6 @@ class GetPbx3cxCallsRequest extends Request
 
     public function createDtoFromResponse(Response $response): EntityCollection
     {
-        return EntityCollection::fromResponse($response, Pbx3cxCall::class, null);
+        return EntityCollection::fromResponse($response, Pbx3cxCall::class, 'data');
     }
 }
