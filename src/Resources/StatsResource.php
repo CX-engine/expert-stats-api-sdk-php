@@ -121,6 +121,43 @@ class StatsResource extends Resource
     }
 
     /**
+     * External outbound calls per user (internal calls are never counted).
+     *
+     * @param  array<string, mixed>  $query
+     */
+    public function usersOutboundReport(string $hostName, array $query = []): Response
+    {
+        return $this->connector->send(
+            new Endpoints\UsersOutboundReportRequest($hostName, $query)
+        );
+    }
+
+    /**
+     * Hourly external outbound calls placed by users.
+     *
+     * @param  array<string, mixed>  $query
+     */
+    public function usersOutboundCalls(string $hostName, array $query = []): Response
+    {
+        return $this->connector->send(
+            new Endpoints\UsersOutboundCallsRequest($hostName, $query)
+        );
+    }
+
+    /**
+     * Streams a binary file export. Callers must NOT call `->json()` on the
+     * returned response.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function getUserOutboundReportFile(string $hostName, array $data): Response
+    {
+        return $this->connector->send(
+            new Endpoints\UserOutboundReportFileRequest($hostName, $data)
+        );
+    }
+
+    /**
      * @param  array<string, mixed>  $query
      */
     public function standardDashboard(string $hostName, array $query = []): Response
