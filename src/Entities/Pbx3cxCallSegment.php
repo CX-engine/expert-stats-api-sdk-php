@@ -13,28 +13,14 @@ class Pbx3cxCallSegment extends Entity
         'end_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    protected static $aliases = [
-        'start_time' => 'start_at',
-        'end_time' => 'end_at',
-        'seg_type' => 'segment_type',
-    ];
-
     public function __construct(
-        public ?int $call_id = null,
         public ?string $seg_id = null,
-        public ?int $seg_type = null, # deprecated
-        public ?int $seg_order = null,
         public ?string $segment_type = null,
-        public ?string $src_dn_type = null, # deprecated
-        public ?string $src_dn = null, # deprecated
-        public ?string $src_number = null, # deprecated
-        public ?string $src_display_name = null, # deprecated
         public ?string $origin_dn_type = null,
         public ?string $origin_dn = null,
         public ?string $origin_display_name = null,
         public ?string $dst_dn_type = null,
         public ?string $dst_dn = null,
-        public ?string $dst_number = null, # deprecated
         public ?string $dst_display_name = null,
         public ?Carbon $start_at = null,
         public ?int $start_at_ts = null,
