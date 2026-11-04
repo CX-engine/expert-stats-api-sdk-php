@@ -101,4 +101,54 @@ class ConfigAuditResource extends Resource
     {
         return $this->connector->send(new ConfigAudit\RefreshRequest($hostName));
     }
+
+    /**
+     * Findings marked as expected for the host.
+     */
+    public function acceptances(string $hostName): Response
+    {
+        return $this->connector->send(new ConfigAudit\AcceptancesRequest($hostName));
+    }
+
+    /**
+     * Mark a finding (id or "code:object" key) as expected for the host.
+     *
+     * @param  array{finding: string, note?: ?string, accepted_by?: ?string}  $data
+     */
+    public function accept(string $hostName, array $data): Response
+    {
+        return $this->connector->send(new ConfigAudit\AcceptFindingRequest($hostName, $data));
+    }
+
+    /**
+     * Report an accepted finding again.
+     */
+    public function revokeAcceptance(string $hostName, int $acceptanceId): Response
+    {
+        return $this->connector->send(new ConfigAudit\RevokeAcceptanceRequest($hostName, $acceptanceId));
+    }
+
+    /**
+     * Files provided for the audit and the Call Flow Apps sources can be given for.
+     */
+    public function files(string $hostName): Response
+    {
+        return $this->connector->send(new ConfigAudit\FilesRequest($hostName));
+    }
+
+    /**
+     * Upload a file for the audit: kind backup (XML), call_flow (ZIP, fields
+     * app and uploaded_by) or prompts (ZIP of .wav).
+     *
+     * @param  array<string, string|null>  $fields
+     */
+    public function uploadFile(string $hostName, string $kind, string $path, string $fileName, array $fields = []): Response
+    {
+        return $this->connector->send(new ConfigAudit\UploadFileRequest($hostName, $kind, $path, $fileName, $fields));
+    }
+
+    public function deleteCallFlow(string $hostName, string $app): Response
+    {
+        return $this->connector->send(new ConfigAudit\DeleteCallFlowRequest($hostName, $app));
+    }
 }
