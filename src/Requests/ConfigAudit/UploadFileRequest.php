@@ -5,6 +5,7 @@ namespace CXEngine\ExpertStats\Requests\ConfigAudit;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Data\MultipartValue;
 use Saloon\Enums\Method;
+use Saloon\Http\PendingRequest;
 use Saloon\Traits\Body\HasMultipartBody;
 
 /**
@@ -41,6 +42,16 @@ class UploadFileRequest extends ConfigAuditRequest implements HasBody
     protected function path(): string
     {
         return self::KINDS[$this->kind];
+    }
+
+    /**
+     * The connector's default `Content-Type: application/json` is merged
+     * after HasMultipartBody sets its header, which would make the server
+     * read the body as JSON and miss the file: restore the multipart one.
+     */
+    public function boot(PendingRequest $pendingRequest): void
+    {
+        $pendingRequest->headers()->add('Content-Type', 'multipart/form-data; boundary='.$this->body()->getBoundary());
     }
 
     protected function defaultBody(): array
